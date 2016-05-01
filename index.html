@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>関数型言語勉強会</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/moon.css">
@@ -97,15 +97,81 @@
 
 					>>>
 					### 手続き型
-					```math
-					x = x + 1
-					```
+					`$$ X = X + 1 $$`
 
 					>>>
 					### 関数型
-					```math
-					x\_0 = x\_1 + 1
+					`$$ X_{n+1} = X_n + 1 $$`
+
+					>>>
+					### 手続き型とは
+					- メモリを確保し、そのメモリ領域を共有し内部を破壊しつつ、プログラムを動作させるというパラダイム
+					- よってアクセス指定子などが必要
+
+					>>>
+					### 関数型とは
+					- メモリを共有せずに、内部の破壊を起こさないようにプログラムを動作させるというパラダイム
+
+					>>>
+					### 副作用
+					- 確保したメモリの内部を破壊する操作
+					- 環境に依存した処理
+
+					>>>
+					### 純粋関数型言語
+					- メモリの破壊ができない関数型言語を純粋関数型言語と呼びます。
+					- ループが書けないので、再帰もしくは高階関数(後述)を使用。
+					- 環境に依存した処理などは特定の機構を通じて行います。
+
+					>>>
+					### 関数とは？
+					- 同じ引数であれば同じ戻り値を返すもの
+					- 上記の性質のことを参照透明性と呼びます。
+					- 引数が同じでも同じ結果を返さないものは関数ではない。(手続き)
+					- 例えばテキストファイルのパスを渡してその中身を読み込み返す「関数」
+					- 上記は関数ではなく手続き、戻り値はファイルの内容に依存するため。
+
+					>>>
+					### 高階関数
+					- 関数を引数にしたり、関数を戻り値にしたりする関数のこと
+					- JavaScript、C#、Luaなどはこの機能をサポート
+					- 「関数がファーストクラスオブジェクト」などと言ったりします。
+					- 関数型言語では関数を外から差し込むことで、多態性を実現します。
+
+					>>>
+					### 高階関数(実装例)
+					```JavaScript
+					// JavaScriptでの実装例
+					binOp(10, 2, function(x, y) { return x + y }) // -> 12
+					binOp(10, 2, function(x, y) { return x - y }) // -> 8
+					binOp(10, 2, function(x, y) { return x * y }) // -> 20
+					binOp(10, 2, function(x, y) { return x / y }) // -> 5
+
+					function binOp(x, y, op)
+					{
+						return op(x, y)
+					}
 					```
+
+					>>>
+					### 高階関数(実装例)
+					```JavaScript
+					// ES6での実装例
+					binOp(10, 2, (x, y) => x + y) // -> 12
+					binOp(10, 2, (x, y) => x - y) // -> 8
+					binOp(10, 2, (x, y) => x * y) // -> 20
+					binOp(10, 2, (x, y) => x / y) // -> 5
+
+					function binOp(x, y, op)
+					{
+						return op(x, y)
+					}
+					```
+
+					>>>
+					### 関数型言語の影響を受けたライブラリ
+					- .Net --- Rx.NET、WPF、LINQ
+					- JavaScript --- RxJS、Cycle.js、knockout.js、Unserscore.js
 
 					---
 					## 第2回
@@ -116,18 +182,23 @@
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
-
 		<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				history: true,
+				history: true,				
+
+                math: {
+                    mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                    config: 'TeX-AMS_HTML', 
+                },
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/math/math.js', async: true }
 				]
 			});
 		</script>
