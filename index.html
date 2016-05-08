@@ -7,7 +7,7 @@
 		<title>関数型言語勉強会</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/moon.css">
+		<link rel="stylesheet" href="css/theme/blood.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -143,10 +143,10 @@
 					### 高階関数(実装例)
 					```JavaScript
 					// JavaScriptでの実装例
-					binOp(10, 2, function(x, y) { return x + y }) // -> 12
-					binOp(10, 2, function(x, y) { return x - y }) // -> 8
-					binOp(10, 2, function(x, y) { return x * y }) // -> 20
-					binOp(10, 2, function(x, y) { return x / y }) // -> 5
+					binOp(10, 2, function(x, y){ return x + y }) // -> 12
+					binOp(10, 2, function(x, y){ return x - y }) // -> 8
+					binOp(10, 2, function(x, y){ return x * y }) // -> 20
+					binOp(10, 2, function(x, y){ return x / y }) // -> 5
 
 					function binOp(x, y, op)
 					{
@@ -240,7 +240,7 @@
 					### 関数？手続き？
 					- 自分が書いているものが関数なのか手続きなのかを意識する。
 					- 手続きであっても関数として切り出せる部分がないか確認する。
-					- 関数ならばstatic publicとして切り出してユニットテストを書く。
+					- 関数ならばpublic staticとして切り出してユニットテストを書く。
 					- 手続きならば当該クラスに閉じ込め、状態の変更が外部から観察可能であればユニットテストを書く。
 					- 外部から観察不可であれば別のテスト手法などを考慮する。
 
